@@ -1,0 +1,145 @@
+---
+contributions_001:
+  contributed_item_type: WebLink
+  id: "1"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "1"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_002:
+  contributed_item_type: Topic
+  id: "2"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "1"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_003:
+  contributed_item_type: Topic
+  id: "3"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "2"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_004:
+  contributed_item_type: Topic
+  id: "4"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "3"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_005:
+  contributed_item_type: Topic
+  id: "5"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "4"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_006:
+  contributed_item_type: Topic
+  id: "6"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "5"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_007:
+  contributed_item_type: Topic
+  id: "7"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "6"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_008:
+  contributed_item_type: Topic
+  id: "8"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "7"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_009:
+  contributed_item_type: Topic
+  id: "9"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "8"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_010:
+  contributed_item_type: Topic
+  id: "10"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "9"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_011:
+  contributed_item_type: Topic
+  id: "11"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "10"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_012:
+  contributed_item_type: Topic
+  id: "12"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "11"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_013:
+  contributed_item_type: Topic
+  id: "13"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "12"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_014:
+  contributed_item_type: Topic
+  id: "14"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "13"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_015:
+  contributed_item_type: Topic
+  id: "15"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "14"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>
+contributions_016:
+  contributed_item_type: Topic
+  id: "16"
+  version: "1"
+  contributor_role: creator
+  user_id: "1"
+  contributed_item_id: "15"
+  created_at: <%= Time.now.utc.to_s :db %>
+  updated_at: <%= Time.now.utc.to_s :db %>

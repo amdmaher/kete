@@ -1,0 +1,354 @@
+--- 
+application_controller: 
+  setup_related_topic_and_zoom_and_redirect: 
+    portrait: "{{zoom_class}} {{t.base.was_created}} as a {{t.base.portrait}}."
+comments_controller: 
+  is_authorized: 
+    not_a_member: Sorry, you need to be a {{t.base.member}} to leave a {{t.base.zoom_types.comment}} in this {{t.base.basket}}.
+baskets_helper: 
+  basket_preferences_inheritance_message: 
+    inheritance_notice: These settings will be inherited by all other {{t.base.basket.pluralize}} unless they individually specify their own policy.
+audio: 
+  edit: 
+    not_allowed: Sorry - editing on this section of the site has been disallowed
+topic_types: 
+  new: 
+    title: New {{t.base.zoom_types.topic}} type
+  current_fields: 
+    reorder: Reorder {{t.base.zoom_types.topic.capitalize}} Type Form
+    no_fields_mapped: No form fields currently mapped to this {{t.base.zoom_types.topic}} type.
+    no_more_allowed: You cannot {{t.base.add}} any additional fields to this {{t.base.zoom_types.topic}} type, see above.
+  list: 
+    has_topics: Has topics.
+    title: Listing {{t.base.zoom_types.topic}} types
+  edit: 
+    title: Editing {{t.base.zoom_types.topic}} type
+    return_to_topic_types: Return to {{t.base.zoom_types.topic}} types
+  available_fields_form: 
+    add: "{{t.base.add.capitalize}} to {{t.base.zoom_types.topic.capitalize}} Type"
+    no_more_allowed: You cannot {{t.base.add}} any additional fields to this {{t.base.zoom_types.topic}} type, see above.
+  generic_topic_fields: 
+    title: Generic {{t.base.zoom_types.topic.capitalize}} Fields
+    description_field: "Description: this is where users put the body of their {{t.base.zoom_types.topic}}."
+    note: "All {{t.base.zoom_types.topic}} types inherit the following form fields:"
+    title_field: "Title: What shoule we this topic?  This will also be used to generate a URL for this topic."
+  inherited_fields: 
+    no_more_allowed: You cannot {{t.base.add}} any additional fields to this {{t.base.zoom_types.topic}} type.
+layouts: 
+  application: 
+    delete_confirmation: "{{t.base.are_you_sure}} {{t.base.all.capitalize}} {{t.base.item.pluralize}} in this {{t.base.basket}} will be {{t.base.deleted}} forever!"
+zoom_controller_helpers_lib: 
+  zoom_class_humanize: 
+    comment: Discussion
+  zoom_class_plural_humanize: 
+    comment: Discussion
+activerecord: 
+  errors: 
+    messages: 
+      confirmation: doesn't match confirmation
+search_controller: 
+  find_index: 
+    failed: Problem changing Homepage {{t.base.zoom_types.topic}}
+    changed: Homepage {{t.base.zoom_types.topic}} {{t.base.changed}} {{t.base.successfully}}
+topics_controller: 
+  edit: 
+    not_authorized: You don't have permission to {{t.base.edit}} this topic.
+  create: 
+    created_related: "{{t.base.related.capitalize}} {{t.base.zoom_types.topic.capitalize}} {{t.base.was_created}}."
+    created: "{{t.base.zoom_types.topic.capitalize}} {{t.base.was_created}}."
+  update: 
+    changed_topic_type: You've {{t.base.changed}} the {{t.base.zoom_types.topic}} type for this topic. Please {{t.base.review}} the available fields.
+    updated: "{{t.base.zoom_types.topic.capitalize}} {{t.base.was_updated}}."
+profiles: 
+  homepage_options: 
+    recent_topics: "{{t.baskets.homepage_form.recent_topics}}"
+image_file_model: 
+  not_acceptable: is not acceptable. It should be a .jpg, .gif, or other {{t.base.zoom_types.image}} file.
+configure_controller: 
+  send_information: 
+    already_running: There is already a site registration worker active. Wierd! Try refreshing the page.
+  clear_cache: 
+    problem_clearing_cache: There was a problem clearing this sites cache. Please do it manually.
+    cache_cleared: The sites cache was cleared {{t.base.successfully}}.
+  get_site_linking_progress: 
+    site_registered: Your Kete installation has been {{t.base.registered}}. {{t.base.thank_you}}. You can {{t.base.view}} the whole directory of Kete sites at <a href='{{kete_sites_link}}'>{{kete_sites_link}}</a>.
+privacy_controls_helper: 
+  privacy_controls_description: 
+    public_vs_private: "Note: Individual versions of this {{t.base.item}} can be {{t.base.public}} or {{t.base.private}}. The latest {{t.base.public}} version will be shown to non-{{t.base.basket}} members if available.  Otherwise, this {{t.base.item}} is completely {{t.base.private}}."
+site_linking_lib: 
+  error_linking_site: 
+    error_occured: "There was an error linking to your site. "
+    manual_linking: You can do it manually at <a href='{{new_kete_site}}'>{{new_kete_site}}</a>.
+    appears_listed: However, it appears that your site is now listed. Please check the listing to make sure it is correct at <a href='{{new_kete_site}}'>{{new_kete_site}}</a>.
+comments: 
+  new: 
+    title: New discussion
+account_controller: 
+  activate: 
+    activated: "{{t.base.your.capitalize}} {{t.base.account}} {{t.base.has_been}} {{t.base.activated}}.  {{t.base.please.capitalize}} {{t.base.login}}."
+documents_controller: 
+  make_theme: 
+    made_theme: "{{t.base.zoom_types.document.capitalize}} expanded to be new theme."
+  update: 
+    updated: "{{t.base.zoom_types.document.capitalize}} {{t.base.was_updated}}."
+  convert: 
+    not_converted: There were problems converting the text of the uploaded {{t.base.zoom_types.document}} to the document's description.  Please {{t.base.edit}} the description manually.
+    converted: "{{t.base.zoom_types.document.capitalize}} description {{t.base.was_updated}} with text of uploaded document."
+account: 
+  forgot_password: 
+    email: What is the {{t.base.email}} address used to {{t.base.create}} {{t.base.your}} {{t.base.account}}?
+errors: 
+  zebra_connection_failed: 
+    body: |-
+      <h2>500 Error!</h2>
+      <p>Oops! Zebra failed to connect to get the information you {{t.base.requested}}.</p>
+      <p>This could be because Zebra is not started, or is currently offline for maintenance.</p>
+      <h3>What now?</h3>
+      <p>Try pressing the back button in your browser. Then try to do whatever you were doing again.</p>
+      <h3>Still getting this error?</h3>
+      <p>Sorry about that. You can either try again a bit later on or help us out by reporting the problem.</p>
+      <p>Please send an email via the "{{t.base.contact.capitalize}}" link at the top of the page.</p>
+      <p>Include details about what you were trying to do.</p>
+      <p><span style="font-weight: bold;">Example </span></p>
+      <p>"I was trying to find information on Foxton Beach. I typed 'Foxton Beach' into the {{t.base.search}} and got this error."</p>
+      <p>Please include the URL of the page that gave you the error. The URL is in the address bar of your browser and will start with http://. Please include the entire URL.</p>
+      <p><span style="font-weight: bold;">Example</span></p>
+      <p>http://horowhenua.kete.net.nz/site/topics/show/44</p>
+      <h3>Thanks and once again sorry for the inconvenience.</h3>
+  error404: 
+    body: |-
+      <h2>404 Error!</h2>
+      <p>Oops! You have encountered an error in this site. A 404 error means that that the content you were after could not be found.</p>
+      <p>This could be a broken link or a symptom of another problem.</p>
+      <h3>What now?</h3>
+      <p>Try pressing the back button in your browser. Then try to do whatever you were doing again.</p>
+      <h3>Still getting this error?</h3>
+      <p>Sorry about that. You can either try again a bit later on or help us out by reporting the problem.</p>
+      <p>Please send an email via the "{{t.base.contact.capitalize}}" link at the top of the page.</p>
+      <p>Include details about what you were trying to do.</p>
+      <p><span style="font-weight: bold;">Example </span></p>
+      <p>"I was trying to find information on Foxton Beach. I typed 'Foxton Beach' into the {{t.base.search}} and got a number of results. When I clicked on the result "Foxton Beach" I got this error."</p>
+      <p>Please include the URL of the page that gave you the error. The URL is in the address bar of your browser and will start with http://. Please include the entire URL.</p>
+      <p><span style="font-weight: bold;">Example</span></p>
+      <p>http://horowhenua.kete.net.nz/site/topics/show/44</p>
+      <h3>Thanks and once again sorry for the inconvenience. </h3>
+  invalid_authenticity_token: 
+    body: |-
+      <h2>Invalid Authenticity Token!</h2>
+      <p>Oops! It seems your session has expired and caused your authenticity token to become invalid.</p>
+      <p>This could be because you've returned to a page that was cached by your browser (containing the old token).</p>
+      <h3>What now?</h3>
+      <p>You can try fix this by doing one of the following:</p>
+      <ol>
+        <li>Clear your browsers cache and reload the page.</li>
+        <li>Logout and back into this site, then try again.</li>
+      </ol>
+      <h3>Still getting this error?</h3>
+      <p>Sorry about that. You can either try again a bit later on or help us out by reporting the problem.</p>
+      <p>Please send an email via the "{{t.base.contact.capitalize}}" link at the top of the page.</p>
+      <p>Include details about what you were trying to do.</p>
+      <p><span style="font-weight: bold;">Example </span></p>
+      <p>"I was trying to edit the topic 'Introduction' and I got the Authenticity Token problem."</p>
+      <p>Please include the URL of the page that gave you the error. The URL is in the address bar of your browser and will start with http://. Please include the entire URL.</p>
+      <p><span style="font-weight: bold;">Example</span></p>
+      <p>http://horowhenua.kete.net.nz/site/topics/show/44</p>
+      <h3>Thanks and once again sorry for the inconvenience. </h3>
+topics: 
+  new: 
+    what_is_topic_about: What is the {{t.base.zoom_types.topic}} about?
+  topic_types: 
+    about_a: About a?
+search_sources_controller: 
+  redirect_if_not_authorized: 
+    not_authorized: You are not authorized to access this section of the site. Try a different account.
+  source_more_link_base_url_description: Like Base URL, except links to a site search instead of the search source. Make it end in '?q=' or similar. (optional)
+baskets: 
+  permission_denied: 
+    part1: "We're sorry, but access to the page you {{t.base.requested}} is restricted. Here are some possible ways you may proceed:"
+documents: 
+  edit: 
+    not_authorized: Sorry - editing on this section of the site has been disallowed
+extended_fields_helper: 
+  extended_field_topic_type_editor: 
+    getting_topics: "Getting topics. "
+  ftype_form_column: 
+    choices_topic_type: Pre-populated Choices ({{t.base.zoom_types.topic}} type)
+extended_content_lib: 
+  validate_extended_topic_type_field_content: 
+    no_such_topic: we were unable to find a matching {{t.base.zoom_types.topic}} on our site. Did you enter {{t.base.zoom_types.topic}} in the format of '{{t.base.zoom_types.topic}} title (URL)?'
+tags: 
+  rss: 
+    title: "{{site_name}} - {{basket_name}} - Latest {{count}} {{t.base.tag.capitalize.pluralize}}"
+importers: 
+  new: 
+    mapping_fields: You have mapped the appropriate fields in the records.xml file to {{t.base.tag.pluralize}} or the title, short summary, or description fields.  Click "reconfigure site" in {{t.layouts.application.toolbox_label}}, then "Advanced Options", then "Imports", and fill out form appropriately.  You will need to restart the site before your import for these settings to take effect.
+    delay_between_records_explaination: To protect against an import overwhelming your server's resources and affecting the response time of your website, we recommend an interval between processing each record.  If your server has a lot of computing power, feel free to lower this number or even put in '0'.
+  new_related_set_from_archive_file: 
+    edit_after_import: Alternatively, you may also {{t.base.edit}} any uploaded {{t.base.item}}'s title or other details after it has been {{t.base.added}} to the site.
+    archive_limit: The largest archive file you may upload is {{size}}.  You may want to scale down your {{t.base.item.pluralize}} to be more reasonable sized to {{t.base.add}} to the site and re{{t.base.create}} your archive file.
+images_controller: 
+  update: 
+    updated: "{{t.base.zoom_types.image.capitalize}} {{t.base.was_updated}}."
+baskets_controller: 
+  redirect_if_current_user_cant_add_or_request_basket: 
+    not_authorized: "{{t.base.you.capitalize}} need to have the right permissions to {{t.base.add}} or {{t.base.request}} a {{t.base.basket}}"
+moderate: 
+  rss: 
+    title: "{{site_name}} - {{basket_name}} - Moderate"
+web_links: 
+  edit: 
+    not_authorized: Sorry - editing on this section of the site has been disallowed
+images: 
+  portrait_controls: 
+    title: "{{t.base.portrait.capitalize}} Controls"
+configure: 
+  zoom_dbs_edit: 
+    port_advanced_note: "Advanced: Unless you run more than one Kete site on your host, it is safe to leave this as the default. Otherwise, you will want to check what ports any other {{t.base.search.capitalize}} Engines (Zebra servers) are already running on and {{t.base.change}} this to a new port."
+  index: 
+    setup_site: Before your new site is ready, you'll need to fill out some details, {{t.base.change}} some passwords, restart your server, prime the {{t.base.search}} engine, and then reload this page.
+    site_configured: Congratulations!  Your Kete site is configured and ready to be {{t.base.viewed}}. Click 'Reload Site' to move on to customising your Kete's content to suit.
+    reload_site: Reload Site
+    clear_cache: Clear Site Cache
+    link_site_later: You may do this later by visiting the {{t.layouts.application.toolbox_label}} and using the "List site on Kete.net.nz" link.
+  link_to_site: 
+    title: List your site on Kete.net.nz (optional)
+    site_description: "Site description:"
+    already_listed: Kete.net.nz already lists the site. You can see details at {{listing_link}}.
+    description: Would you like to send your site name, site url and a short description of your site for to a {{t.base.public}} list of Kete installations?
+members_controller: 
+  permitted_to_view_memberlist: 
+    not_authorized: "{{t.base.you.capitalize}} need to have the right permissions to access this {{t.base.basket.pluralize}} {{t.base.member}} list"
+user_notifier: 
+  signup: 
+    enter_this_code: "If {{t.base.you}} aren't automatically {{t.base.activated}}, {{t.base.please}} {{t.base.enter}} this {{t.base.code}}:"
+flagging_controller_lib: 
+  restore: 
+    made_live: Your {{t.base.contribution}} to {{site_name}} in {{basket_name}} has been made the live version.
+members: 
+  list: 
+    site_admin: "{{t.base.site_administrator}}"
+  rss: 
+    title: "{{site_name}} - {{basket_name}} - Latest 50 {{t.base.member.capitalize.pluralize}}"
+licenses: 
+  install: 
+    creative_commons_note: "Note: The Creative Commons {{t.base.license}} imports do not include the \"no derivatives\" licenses because they are not compatible with most Kete sites. If you need these, {{t.base.add}} them in the interface below."
+basket_model: 
+  tags_ordered_random: Random
+video: 
+  edit: 
+    not_authorized: Sorry - editing on this section of the site has been disallowed
+active_scaffold: 
+  deleted_model: Deleted {{model}}
+importers_controller: 
+  get_progress: 
+    to_related_topics: Return to {{t.base.related}} topic.
+user_notifier_model: 
+  account_activated: "{{t.base.your.capitalize}} {{t.base.account}} {{t.base.has_been}} {{t.base.activated}}!"
+field_mappings_controller: 
+  remove_mapping: 
+    being_used: The {{field_label}} mapping is in use by this {{item_class}} or its descendants and {{t.base.cannot_be}} {{t.base.deleted}}.
+application_helper: 
+  search_sorting_controls_for: 
+    ascending: "Ascending. "
+    descending: "Descending. "
+  embedded_enabled_message: 
+    harvesting: Embedded metadata will be harvested from the {{t.base.item}}'s binary file to fill out any fields that match the site's settings.
+  link_to_related_items_of: 
+    link_text: "{{t.base.view.capitalize}} {{t.base.item.pluralize}} {{t.base.related}} to {{item_title}}"
+  link_for_rss: 
+    link_text: from all types combined
+  related_image_link_for: 
+    only_original: only available as original
+  flagging_links_for: 
+    can_you_edit: Remember, you may have the option to directly {{t.base.edit}} this {{t.base.item}} or alternatively discuss it. Are you sure you want to {{t.base.flag}} it instead?
+    flag_as: "{{t.base.flag.capitalize}} as:"
+  pending_review: 
+    pending: "{{t.base.review.capitalize}} Pending:"
+    reverted: "currently reverted to non-disputed {{privacy_type}} version # {{item_version}}"
+    no_safe_version: currently no non-disputed {{privacy_type}} versions of this {{t.base.item}}. Details of the {{privacy_type}} version of this {{t.base.item}} are not being displayed at this time.
+  link_to_preview_of: 
+    not_available: "{{t.base.not_available}}"
+  header_add_links: 
+    add_item: "{{t.base.add.capitalize}} {{t.base.item.capitalize}}"
+  header_browse_links: 
+    browse_or: or
+    browse: Browse
+  show_comments_for: 
+    edit: "{{t.base.edit.capitalize}}"
+    confirm_delete: "{{t.base.are_you_sure}}"
+    delete: "{{t.base.delete.capitalize}}"
+    history: "{{t.base.history.capitalize}}"
+    comment_count: There are {{count}} comments in this discussion.
+    read_and: "Read and "
+    join_discussion: "{{t.base.join}} this discussion"
+    said: said
+  header_add_basket_link: 
+    request_basket: "{{t.base.request.capitalize}} {{t.base.basket.capitalize}}"
+    add_basket: "{{t.base.add.capitalize}} {{t.base.basket.capitalize}}"
+  avatar_for: 
+    users_avatar: "{{user_name}}'s {{t.base.avatar.capitalize}}. "
+  kete_time_ago_in_words: 
+    longer_than_a_week: on {{date}}
+    within_a_week: "{{time}} ago"
+  header_links_to_baskets: 
+    more_baskets: more...
+  link_to_related_item_function: 
+    link_text: "{{function}} an Existing {{t.base.related.capitalize}} {{t.base.item.capitalize}}"
+  link_to_members_of: 
+    members_link_text: "{{t.base.member.capitalize.pluralize}}"
+  browse_by_category_columns: 
+    all_items: All {{item_type}}
+  link_to_cancel: 
+    cancel: "{{t.base.cancel}}"
+  tags_for: 
+    tags: "{{t.base.tag.capitalize.pluralize}}:"
+  link_to_basket_contact_for: 
+    contact: "{{t.base.contact.capitalize}}"
+  link_to_membership_request_of: 
+    pending: "{{t.base.membership.capitalize}} pending"
+    leave: Leave
+    join: "{{t.base.join.capitalize}}"
+    request: "{{t.base.request.capitalize}} {{t.base.membership}}"
+    current_role: You're a |role|.
+    rejected: "{{t.base.membership.capitalize}} {{t.base.rejected}}"
+  header_link_to_current_basket: 
+    separator: ":"
+  link_to_last_stored_location: 
+    back_to_kete_home: "&lt;&lt; Back to Kete Home"
+    back_to_stored_location: "&lt;&lt; Back to '{{stored_location}}'"
+  link_to_add_item: 
+    in_basket: " in {{basket_name}}"
+  link_to_add_set_of_related_items: 
+    link_text: Import Set of {{t.base.related.capitalize}} {{t.base.item.capitalize.pluralize}}
+  privacy_image: 
+    private: "{{t.base.private}}: "
+  link_to_original_of: 
+    phrase: "{{t.base.view}}"
+  render_baskets_as_menu: 
+    more: More..
+document_model: 
+  not_acceptable: is not acceptable. It should be a .pdf, .doc, or other {{t.base.zoom_types.document}} file.
+datetime: 
+  distance_in_words: 
+    about_x_hours: 
+      one: about 1 hour
+      other: about {{count}} hours
+    about_x_months: 
+      one: about 1 month
+      other: about {{count}} months
+    about_x_years: 
+      one: about 1 year
+      other: about {{count}} years
+search: 
+  for: 
+    whole_site: " whole site"
+extended_fields_controller: 
+  base_url_description: Whatever the {{t.base.user}} inputs will be appended to this base url (e.g. http://site.com/~[user_input]).</p><p>&nbsp;</p><p><b>NOTE:</b> in the case of any of the choice ftypes, Base URL + value will take over from normal linking to all results that match the value for the choice for the extended field. In the case of Location on map ftypes, supplying a base url will link the coordinates on display to the url, appending an ll (latitude/longitude) and z (zoom level) parametres (for ease of use with Google Maps - configurable in config/google_map_api.yml)
+base: 
+  activated: activated
+index_page: 
+  index: 
+    image_from_archive: "{{t.base.zoom_types.image.capitalize}} {{t.base.from}} the Archive"
+email: 
+  contact_form: 
+    email_shared: "Note: {{t.base.your.capitalize}} {{t.base.email}} address will be shown to the person/people who receive this email."

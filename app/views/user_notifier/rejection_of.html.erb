@@ -1,0 +1,14 @@
+<%= @user.user_name %>,
+
+<%=t 'user_notifier.rejection_of.description',
+     :revision => @revision,
+     :flag => REJECTED_FLAG %>
+
+  <%= @url %>
+
+<% if !@message.blank? -%>
+  <%=t 'user_notifier.rejection_of.reason' %>
+  <%= @message %>
+<% end -%>
+
+<%= render 'email_footer' %>

@@ -1,0 +1,508 @@
+==
+= Upgrading From Kete 1.0 through Kete 1.2 =
+==
+For detailed instructions on upgrading from Kete 1.1 to Kete 1.2, please refer to
+the online documentation at
+
+http://kete.net.nz/documentation/topics/show/258-upgrading-to-kete-12-release
+
+For detailed instructions on upgrading from Kete 1.0 to Kete 1.1, please refer to
+the online documentation at
+
+http://kete.net.nz/documentation/topics/show/177-upgrading-to-kete-11-release
+
+You can safely ignore everything below here if you follow the online topic.
+
+==
+= Incremental Upgrade Instructions
+==
+Originally contributed by James Stradling <james@katipo.co.nz> - 2008-05-16
+
+The following steps are only necessary if you continuously upgrade your code base to the latest Kete trunk.
+Occasionally there are additional minor steps needed to update your Kete installation between revisions.
+You can find these by scrolling down to the time where you last updated Kete, and going up through the additional steps.
+
+GENERAL NOTE: If you have a lot of things to do, you could alternatively follow the upgrade guide mentioned above, which is
+essentially a collection of all the commands used below into one step by step guide.
+
+GENERAL NOTE: It is assumed you are upgrading from an earlier functional and unmodified trunk version. If not, be sure to preserve
+the customizations you want to keep when you upgrade the code base.
+
+GENERAL NOTE: Quite often you'll only have to do steps once to get the changes from multiple revisions.  In other words,
+if a step is listed from multiple revisions, you only have to do it once.
+
+IMPORTANT NOTE: For any steps where you run, "rake db:migrate", it is a good idea to back up your database before you run that step.
+
+GENERAL NOTE: if you are upgrading your production Kete instance rather than development, you'll add "RAILS_ENV=production" to all rake tasks.
+
+GENERAL NOTE: if you are running in production mode, you may also want to do a "rake tmp:cache:clear" as your last step to any of these.
+However, if you updated your code via a Capistrano deploy, this is probably not necessary.
+
+== 2010/07/12 - #284 - System Setting for basket list under site name.
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake kete:upgrade"
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2010/07/12 - #283 - Adding ability to change Attached File Privacy for imports.
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake db:migrate"
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2010/06/04 - #281, #280, #279 - Adding case for web link validity checking for Forbidden responses & moved http_url_validation_improved to gem. Also moved TinyMCE to gem, too.
+
+1.      run "gem install http_url_validation_improved tiny_mce" - as root user if necessary for your platform
+2.      Stop your Kete server (mongrels or mod_rails).
+3.      Upgrade your code base
+4.      run "rake kete:upgrade"
+5.      Start your Kete server again (mongrels or mod_rails)
+6.      Restart backgroundrb
+
+== 2010/02/19 - Fixing creation of related items from topic type extended fields
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake kete:repair:extended_fields:repopulate_related_items_from_topic_type_choices"
+4.      run "rake tmp:cache:clear"
+5.      Start your Kete server again (mongrels or mod_rails)
+6.      Restart backgroundrb
+
+== 2009/09/01 - Search Record Speed Optmizations
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake zebra:stop"
+4.      run "rake zebra:start"
+5.      Restart backgroundrb
+
+== 2009/05/12 - Added Basket Id column to Taggings table
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake db:migrate" in the proper environment
+4.      run "rake kete:upgrade" in the proper environment
+5.      Start your Kete server again (mongrels or mod_rails)
+6.      Restart backgroundrb
+
+== 2009/04/30 - Did supporting work to make Kete work with latest Zebra and YAZ
+
+Note: after this Kete WILL NOT WORK WITH EARLIER Zebra and YAZ, you MUST upgrade them!
+
+1.      Stop your zebra instances with "rake zebra:stop"
+2.      upgrade your underlying Zebra and YAZ instances to be the following or later versions:
+
+yaz-3.0.45
+idzebra-2.0.36
+
+3.      Upgrade your code base
+4.      Start you Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+6.      Start zebra up with "rake zebra:start"
+
+Possible additional step -
+If you encounter problems with your zebra queries (browse and search results, etc.), use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time).
+
+== 2009/04/09 - Adding google maps option to results pages
+Same steps as 2009/04/08
+
+== 2009/04/08 - Fixing issue with searches for choices and basket names as returning too many results, fixed searches for URLs, too
+
+1.      Stop your Kete server (mongrel or mod_rails).
+2.      Upgrade your code base
+3.      Start you Kete server again (mongrels or mod_rails)
+4.      Restart backgroundrb
+5.      Use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time)
+
+== 2009/04/04 - Added support for latest YAZ (3.0.45) and Zebra (2.0.36) required software (older Zebra 2.0.6 no longer compatible)
+
+1.      Upgrade YAZ and Zebra and then reinstall the zoom gem.
+2.      Stop your Kete server (mongrel or mod_rails).
+3.      Upgrade your code base
+4.      Start you Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+6.      Use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time)
+
+== 2009/04/03 - Switching RSS Feed parsing from feed-normalizer to Feedzirra
+
+1.      Stop your Kete server (mongrel or mod_rails).
+2.      Upgrade your code base
+3.      Install the Feedzirra gem.
+            sudo gem install kete-feedzirra -s http://gems.github.com
+4.      (note) We no longer use feed-normalizer and it can be uninstalled if no other Kete instances need it
+            sudo gem uninstall feed-normalizer
+5.      Start you Kete server again (mongrels or mod_rails)
+6.      Restart backgroundrb
+
+== 2009/03/26 - Switched RSS Feed generation to Nokogiri for big speed boosts
+
+1.      Stop your Kete server (mongrel or mod_rails).
+2.      Upgrade your code base
+3.      Update the Nokogiri gem. We require an edge version not yet released, so make sure you do
+            rake manage_gems:required:install
+4.      Start you Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2009/02/19 - Adding missing excel mime type variants to accepted Document Content Types
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      run "rake kete:upgrade" in the proper environment
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2009/02/16 - Repairing Item Relations
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Start your Kete server again (mongrels or mod_rails)
+4.      Restart backgroundrb
+5.      Use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time)
+
+== 2009/02/03 - Extra deployment task : Copy bootstrap.xml.erb
+
+1.      Update to the latest Kete version using Git (and Capistrano if you've chosen this deployment method)
+2.      Follow all other upgrade proceedures (db:migrate, kete:upgrade etc)
+3.      Run the following (change to suit deployment path)
+           cd /path/to/apps/your_app/shared && cp cached-copy/zebradb/bootstrap.xml.erb system/zebradb/bootstrap.xml.erb
+4.      Use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time)
+
+== 2009/01/29 - Fixing incorrect storage location of image thumbnails
+
+1.      Update to the latest Kete version using Git (and Capistrano if you've chosen this deployment method)
+2.      Run the following:
+           rake kete:repair:make_thumbnails_private
+3.      Restart your mongrels or mod_rails
+4.      Clear your sites cache
+           rake tmp:cache:clear
+5.      Restart backgroundrb
+
+== 2009/01/27 - Enable Harvesting of Embedded Metadata in Uploaded Files
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Run Kete upgrade: 'rake kete:upgrade'
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2009/01/26 - Results with related counts and display of related images for topics, as well as, support for Podcasting and Media RSS
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Clear your sites cache (rake tmp:cache:clear)
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+6.      Use Administrator's Toolbox > Rebuild search databases to update all your search records (sites with a lot of items may take a long time)
+
+== 2009/01/22 - Portrait UI refinements
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Clear your sites cache (rake tmp:cache:clear)
+4.      Start your Kete server again (mongrels or mod_rails)
+5.      Restart backgroundrb
+
+== 2009/01/20 - Updates to Webrat for better Selenium testing
+
+1.      Update your webrat gem to >= 0.4.0
+           (you should be able to run  'rake manage_gems:testing:update')
+2.      Run  rake test:selenium   to get going
+
+== 2009/01/13 - user_name moved to display_name and resolved_name
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Run the migrations: 'rake db:migrate'
+4.      Run Kete upgrade: 'rake kete:upgrade'
+5.      Start your Kete server again (mongrels or mod_rails)
+6.      Restart backgrounrb
+
+== 2008/12/09 - Webrat integration tests
+
+You will need to install the webrat, shoulda, and factory-girl gems in order to perform integration tests. In order to do this, please run the following as root (or a super-user):
+  rake manage_gems:testing:install
+
+If you are not planning on running the integration test suite for Kete, you can safely ignore this upgrade step.
+
+== 2008/12/06 - Adding choices for extended fields
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Run the migrations: 'rake db:migrate'
+4.      Start your Kete server again (mongrels or mod_rails)
+
+== 2008/12/05 - Fixing Zebra configuration that wasn't allowing for large sets of search records to be handled
+
+1.      Update to the latest Kete version using Git (and Capistrano if you've chosen this deployment method)
+        If using Capistrano, you will want to make sure the new code from shared/cached-copy/zebradb/conf/zebra-public.cfg (also, the zebra-private.cfg) is in place.  This may require a manual cp to shared/system/zebradb/conf/
+2.      Stop zebra with "rake zebra:stop"
+3.      Start zebra with "rake zebra:start"
+
+== 2008/11/12 - Better handling of unicode characters in search records
+
+1.      Update to the latest Kete version using Git (and Capistrano if you've chosen this deployment method)
+2.      Install the htmlentities gem by running
+           sudo gem install htmlentities
+3.      Restart your mongrels or mod_rails
+4.      Restart your backgroundrb instance
+5.      If you have existing records that have non-latin characters in them, rebuild your search records (see other tasks below for summary under "Use the web interface to repopulate your Zebra database...")
+
+== 2008/11/05 - Added Basket Join Policy and Member List Policy
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Run the migrations: 'rake db:migrate'
+4.      Start your Kete server again (mongrels or mod_rails)
+
+== 2008/11/04 - Added User contact form functionality
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Upgrade your code base
+3.      Run the migrations: 'rake db:migrate'
+4.      Start your Kete server again (mongrels or mod_rails)
+
+== 2008/10/16 - Location of uploaded files changed and corrected
+
+Due to an error in recent Kete releases, uploaded audio recordings and videos were stored in an incorrect location. This version of Kete fixes this issue, and as a result you may need to move your uploaded files to the correct folder.
+
+To upgrade, please follow these instructions:
+
+1.      IMPORTANT: Back up your Kete instance, including MySQL and full application folder
+2.      Update to the latest Kete version using Git (and Capistrano if you've chosen this deployment method)
+3.      Run rake kete:repair:check_uploaded_files to see if any files need to be relocated in your Kete instance
+4.      Run rake kete:repair:correct_upload_locations to move files ONLY if necessary
+
+Note: If you're using Capistrano to manage your Kete instance deployments, you may also need to retrieve uploaded files from earlier releases as they may have been archived. See http://kete.net.nz/documentation/topics/show/207 for full details.
+
+== 2008/10/14 - Add Gravatar support, and new user portrait related settings/migrations
+
+1.      Stop your Kete server (mongrels or mod_rails).
+2.      Install the avatar gem
+          $ gem install avatar
+3.      Upgrade your code base
+4.      Run the migrations: 'rake db:migrate'
+5.      Run the upgrade script: 'rake kete:upgrade'
+6.      Start your Kete server again (mongrels or mod_rails)
+
+== 2008/10/01 - Private files need to be copied to system folder
+
+Due to a missing configuration in the Capistrano deployment recipes, private files were archived every time the site was deploy.
+A fix has been committed which resolves the problem for future deployments. But you need to manually copy the old private files
+from the releases/[timestamp]/private directory to the new system folder at shared/system/private
+
+== 2008/09/26 - Backgroundrb configuration yml file updated
+
+1.      Stop your Backgroundrb processes
+2.      Update packet by running
+           sudo gem update packet
+3.      Open up background.yml and add the following line to the :backgroundrb: section and save
+           :persistent_disabled: true
+2.      Start your Backgroundrb processes
+
+== 2008/09/17 - CSS "tags" Identifier Changed
+
+To fix an IE6 specific printing bug, the CSS identifier "tags" has been changed to "tags-box". If you are running Kete with a custom theme, be sure to update your theme templates and CSS files to refer to the new "tags-box" CSS identifier, and not the older "tags".
+
+The default Kete template has already been updated.
+
+Once this has been completed, you may need to update and restart your Kete based website to effect the changes.
+
+Complete steps are:
+
+1.      Update all references to the "tags" CSS identifier in custom template(s) as mentioned below:
+        a)  id="tags" should be changed to id="tags-box" in HTML templates
+        b)  #tags should be changed to #tags-box in CSS templates
+        The default Kete templates have already been updated.
+2.      Run tmp:cache:clear (not necessary for capistrano deployments)
+3.      Restart your Kete server
+
+== 2008/09/12 - Adding Homepage Feed Reader
+
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Install the feed-normalizer gem
+          $ gem install feed-normalizer
+3.      Upgrade your code base
+4.      Run the database migration 'rake db:migrate'
+5.      Start your Kete server again (mongrels, backgroundrb)
+
+== 2008/08/07 - Fixing Caching Issues
+
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      rake tmp:cache:clear (not necessary for capistrano deployments)
+4.      Start your Kete server again (mongrels, backgroundrb)
+
+== 2008/08/01 - Making search for contributions by a user be limited to login, rather than non-unique user name
+
+1.      Stop your Kete server (mongrels).
+2.      Upgrade your code base
+3.      Start your Kete server again (mongrels)
+4.      Rebuild your search records (see other tasks below for summary under "Use the web interface to repopulate your Zebra database...")
+
+== 2008/08/01 - Adding system setting for Syntax Highlighting support
+
+1.      Stop your Kete server (mongrels).
+2.      Upgrade your code base
+4.      Run the upgrade script: 'rake kete:upgrade'
+5.      Start your Kete server again (mongrels)
+
+== 2008/07/18 - Upgrading backgroundrb and packet gem
+
+1.      Upgrade your code base
+2.      Down/Upgrade to packet 0.1.7 (the next version is buggy). You can skip this step if you already have packet 0.1.7 installed.
+          $ gem uninstall packet --all
+          $ gem install packet --version 0.1.7
+3.      Edit config/backgroundrb.yml and update it to match the structure of config/backgroundrb.yml.example. Point the :memcached: section to the appropriate IP of the memcached server (default should usually suffice).
+4.      Run the database migration 'rake db:migrate'
+5.      Restart your Kete instance (mongrels)
+6.      Restart your Backgroundrb instance:
+          ./script/backgroundrb stop
+          ./script/backgroundrb start
+
+== Trunk r1324 - support for basket list navigation in a left column, experimental
+
+1.      Stop your Kete server (mongrels).
+2.      Upgrade your code base
+4.      Run the upgrade script: 'rake kete:upgrade'
+5.      Start your Kete server again (mongrels)
+
+== Trunk r1322 - ticket #206 simple bulk import of related items
+
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      Run the database migration 'rake db:migrate'
+4.      Run the upgrade script: 'rake kete:upgrade'
+5.      Start your Kete server again (mongrels, backgroundrb)
+
+== Trunk r1304 - Removal of foreign key constraint causing topic + related item deletion failure.
+
+1.      Upgrade your code base
+2.      Run the database migration 'rake db:migrate'
+3.      Restart your Kete instance (mongrels)
+
+== Trunk r1254 - Adding OAI-PMH Repository functionality and significant refactoring of search.  This is a big one if you have lots of items in Kete.
+
+1.      Upgrade your code base
+2.      Run the database migration 'rake db:migrate'
+3.      Stop your Kete instance (mongrels)
+
+Next, You'll need to rebuild your Zebra indexes to have dates sort without error.  Here's how:
+4.      Run this script to clear your public Zebra database: 'rake zebra:init'
+5.      Run this script to clear your private Zebra database: 'rake zebra:init ZEBRA_DB=private'
+6.      Run this script to stop your Zebra server: 'rake zebra:stop'
+7.      Run this script to start your Zebra server: 'rake zebra:start'
+8.      Run the kete upgrade steps with 'rake kete:upgrade'
+8.      Start your Kete server again (mongrels, backgroundrb)
+9.      Use the web interface to repopulate your Zebra databases with these steps:
+        * make sure you are logged into the site as as the default administrator or an account that has been designated as a "tech admin" and have javascript enabled in your browser.
+
+        * visit the following URLs (adjust for your site's URL) and let them click over (ajax update of page) until you get a "done"
+
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=StillImage
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=AudioRecording
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Video
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=WebLink
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Document
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Comment
+
+        * then double check that search results are good to go by clicking on "Browse" from any page or doing a search
+
+== Trunk r1251 - Workaround for 'svn up' issue regarding public/javascripts and vendor/plugins/acts_as_licensed
+
+1.      Remove the folder public/javascripts
+2.      Remove the folder vendor/plugins/acts_as_licensed
+3.      Upgrade your code base
+4.      Restart your Kete instance (mongrels)
+
+== Trunk r1237 - Bug fixes for tagging on private item versions.
+
+1.      Upgrade your code base
+2.      Run the database migration 'rake db:migrate'
+3.      Restart your Kete instance (mongrels)
+
+== Trunk r1235 - Added system setting for the placeholder details used on public versions of items when no public version is available.
+
+1.      Upgrade your code base
+2.      Run the upgrade rake task 'rake kete:upgrade'
+3.      Restart your Kete instance (mongrels)
+
+== Trunk r1225 - MySQL only, change column definitions to allow for larger amount of text
+
+1.      Upgrade your code base
+2.      Run the migrate rake task 'rake db:migrate'
+
+== Trunk r1196 - Added HTTPS/SSL support
+
+To update from r1196 or later, follow these instructions:
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      Run the kete upgrade rake task 'rake kete:upgrade'
+4.      Start your Kete server again (mongrels, backgroundrb)
+
+Note: You must have a web server and SSL certificate correctly configured
+in order to take advantage of SSL features in this version. The SSL features are
+disabled by default and can be enabled in the Server advanced settings in the
+configuration assistant/reconfigure site controls.
+
+== Trunk r1174 - Added per basket privacy control enable/disable preferences
+
+To update from r1169 through r1173, all you need to do is the following:
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      Run the database migration 'rake db:migrate'
+4.      Start your Kete server again (mongrels, backgroundrb)
+
+If you are updating from an earlier version, please following the instructions for trunk r1169 below.
+
+== Trunk r1169 - Content Licensing Controls Added
+
+This version includes content licensing controls in addition to the privacy control functionality added in r1148.
+The following instructions are for use when updating from a trunk version of Kete to a version r1169 or later.
+
+NB: All commands must be made from the main Kete application directory.
+
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      Run the database migration 'rake db:migrate'
+                NB: This adds new columns and tables in the kete database. If you have customized Kete or
+                need to reverse the upgrade, this may cause issues. See migrations 046 through 060 in
+                /db/migrate/ for an insight into the database schema changes made.
+4.      Run the upgrade script: 'rake kete:upgrade'
+5.      Start your Kete server again (mongrels, backgroundrb)
+
+Optionally, you can run rake acts_as_licensed:import_nz_cc_licenses to
+add Creative Commons New Zealand licenses options to your Kete
+instance.  After that, you probably want to reconfigure your site in
+Advanced Options > Server > Default Content License.
+
+== Trunk r1107 - Search and Browse results sorting
+
+You'll need to rebuild your Zebra indexes to have dates sort without error.  Here's how:
+
+1.      Stop your Kete server (mongrels, backgroundrb).
+2.      Upgrade your code base
+3.      Run this script to clear your public Zebra database: 'rake zebra:init'
+4.      Run this script to clear your private Zebra database: 'rake zebra:init ZEBRA_DB=private'
+5.      Run this script to stop your Zebra server: 'rake zebra:stop'
+6.      Run this script to start your Zebra server: 'rake zebra:start'
+7.      Start your Kete server again (mongrels, backgroundrb)
+8.      Use the web interface to repopulate your Zebra databases with these steps:
+        * make sure you are logged into the site as as the default administrator or an account that has been designated as a "tech admin" and have javascript enabled in your browser.
+
+        * visit the following URLs (adjust for your site's URL) and let them click over (ajax update of page) until you get a "done"
+
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=StillImage
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=AudioRecording
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Video
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=WebLink
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Document
+        your_site_domain/site/search/rebuild_zoom_index?skip_existing=false&zoom_class=Comment
+
+        * then double check that search results are good to go by clicking on "Browse" from any page or doing a search
+

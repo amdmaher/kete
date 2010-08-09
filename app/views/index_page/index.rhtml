@@ -1,0 +1,227 @@
+<% tool_count = 1 -%>
+
+<%= render(:partial => "topics/content_wrapper_start",
+           :locals => { :style_classes =>"notabs" }) -%>
+
+<% if !@topic.nil? -%>
+  <% cache_with_privacy(@topic, {:part => 'details'}) do -%>
+    <%= @topic.description -%>
+    <%= pending_review(@topic) -%>
+  <% end -%>
+
+  <% cache_with_privacy(@topic, {:part => 'extended_fields'}) do -%>
+    <% extended_fields_html = display_xml_attributes(@topic) -%>
+    <% if !extended_fields_html.blank? -%>
+      <%= render(:partial => "topics/secondary_wrapper_start",
+                 :locals => { :div_id => "detail-extended-box", :class_suffix => '-blue' }) -%>
+        <div id="detail-extended">
+          <h4 id="detail-extended-heading"><%= h(@topic.title) %></h4><br />
+          <%= extended_fields_html -%>
+        </div>
+      <%= render(:partial => "topics/secondary_wrapper_end") -%>
+    <% end -%>
+  <% end -%>
+
+  <% cache_with_privacy(@topic, {:part => 'tools'}) do -%>
+    <div class="detail-tools">
+    <% if !@url_to_full_topic.nil? -%>
+      <ul><%= li_with_correct_class(tool_count) + link_to(t('index_page.index.continue_to_topic'), @url_to_full_topic) %></li></ul>
+      <% tool_count += 1 -%>
+      <% end -%>
+      <% if !@url_to_comments.nil? -%>
+      <% if @comments.size > 0 -%>
+        <ul><%= li_with_correct_class(tool_count) + t('index_page.index.view') + link_to( t('index_page.index.comments', :count => @comments.size), @url_to_comments) -%></li></ul>
+        <% tool_count += 1 -%>
+      <% end -%>
+    <% end -%>
+    </div>
+  <% end -%>
+
+  <% if logged_in? && (permitted_to_edit_basket_homepage_topic? || (@current_basket.show_privacy_controls_with_inheritance? && permitted_to_view_private_items?)) -%>
+    <div id="moderator-tools">
+      <ul>
+        <% if permitted_to_edit_basket_homepage_topic? -%>
+          <% cache_with_privacy(@topic, {:part => 'edit'}) do -%>
+            <%= li_with_correct_class(tool_count) +
+                link_to(t('index_page.index.edit'), :action => 'edit',
+                                :urlified_name => @topic.basket.urlified_name,
+                                :controller => 'topics',
+                                :id => @topic,
+                                :private => @topic.private? ) %></li>
+            <% tool_count += 1 -%>
+            <li><%= link_to t('index_page.index.history'), :action => 'history',
+                                       :urlified_name => @topic.basket.urlified_name,
+                                       :controller => 'topics',
+                                       :id => @topic,
+                                       :private => @topic.private? %></li>
+          <% end -%>
+        <% end -%>
+        <% if @current_basket.show_privacy_controls_with_inheritance? && permitted_to_view_private_items? %>
+          <%= render :partial => 'topics/privacy_chooser', :locals => { :item => @topic } -%>
+        <% end -%>
+      </ul>
+      <div style="clear:both;"></div>
+    </div>
+  <% end -%>
+<% else -%>
+
+  <% if @basket_admin %>
+    <div id="moderator-tools">
+      <ul>
+        <li><%= link_to t('index_page.index.create_homepage_topic'),
+                        :urlified_name => @current_basket.urlified_name,
+                        :controller => 'topics',
+                        :action => 'new',
+                        :index_for_basket => @current_basket.id,
+                        :return_to_homepage => true %></li>
+      </ul>
+      <div style="clear:both;"></div>
+    </div>
+  <% end %>
+
+<% end %>
+
+<% cache({:part => "recent_topics_#{@privacy_type}"}) do -%>
+  <% if @recent_topics_limit > 0 &&
+        @recent_topics_items.size > 0 &&
+        !@current_basket.index_page_recent_topics_as.blank? -%>
+    <div class="home-feature-wrapper">
+      <h3><%=t 'index_page.index.latest' %> <%= @recent_topics_items.size.to_s if @recent_topics_items.size > 1 -%> topic<%= 's' if @recent_topics_items.size > 1 -%></h3>
+      <% case @current_basket.index_page_recent_topics_as
+         when 'summaries' -%>
+        <%= render :partial => 'post_summary',
+                   :collection => @recent_topics_items -%>
+      <% when 'headlines' -%>
+        <%= render :partial => 'post_headline',
+                   :collection => @recent_topics_items -%>
+      <% end -%>
+    </div>
+  <% end -%>
+<% end -%>
+
+   </div><!-- /main-content-container -->
+</div><!-- /main-content-wrapper -->
+<div id="secondary-content-wrapper">
+
+<% cache({:part => 'search'}) do -%>
+  <% if @current_basket.index_page_basket_search -%>
+    <%= render(:partial => "topics/secondary_wrapper_start",
+               :locals => { :div_id => "search-box", :class_suffix => nil }) -%>
+      <div id="right-search-box">
+        <% @headline = t('index_page.index.keyword_search')
+           @headline += (' ' + @title) if @current_basket != @site_basket -%>
+        <%= render 'search/search_field', :title => @headline %>
+      </div>
+    <%= render(:partial => "topics/secondary_wrapper_end") -%>
+  <% end -%>
+<% end -%>
+
+<% if @current_basket.allows_contact_with_inheritance? -%>
+  <% cache({:part => 'contact'}) do -%>
+    <%= render(:partial => "topics/secondary_wrapper_start",
+               :locals => { :div_id => "basket-contact", :class_suffix => nil }) -%>
+      <ul><li><%= link_to_basket_contact_for(@current_basket) %></li></ul>
+    <%= render(:partial => "topics/secondary_wrapper_end") -%>
+  <% end -%>
+<% end -%>
+
+<% links = link_to_membership_request_of(@current_basket) -%>
+<% links += link_to_members_of(@current_basket) -%>
+<% unless links.blank? -%>
+  <%= render(:partial => "topics/secondary_wrapper_start",
+             :locals => { :div_id => "basket-options", :class_suffix => nil }) -%>
+    <ul><%= links %></ul>
+  <%= render(:partial => "topics/secondary_wrapper_end") -%>
+<% end -%>
+
+<% cache({:part => 'extra_side_bar_html'}) do -%>
+  <% if !@current_basket.index_page_extra_side_bar_html.blank? -%>
+    <%= render(:partial => "topics/secondary_wrapper_start",
+               :locals => { :div_id => "homepage-extra", :class_suffix => nil }) -%>
+      <%= @current_basket.index_page_extra_side_bar_html -%>
+    <%= render(:partial => "topics/secondary_wrapper_end") -%>
+  <% end -%>
+<% end -%>
+
+<% if !@current_basket.index_page_archives_as.blank? && @current_basket.index_page_archives_as == 'by type' %>
+  <%= render(:partial => "topics/secondary_wrapper_start",
+             :locals => { :div_id => "contents-by-type", :class_suffix => nil }) -%>
+    <h3><%=t 'index_page.index.contents_by_type' %></h3>
+    <%= render :partial => 'archive_by_type' -%>
+  <%= render(:partial => "topics/secondary_wrapper_end") -%>
+<% end -%>
+
+<% if @current_basket.feeds.size > 0 %>
+  <%= render(:partial => "topics/secondary_wrapper_start",
+             :locals => { :div_id => "homepage-rss-feeds", :class_suffix => nil }) -%>
+    <% @current_basket.feeds(true).each do |feed| -%>
+      <% cache("feeds/#{@current_basket.urlified_name}/feed_#{feed.id}") do -%>
+        <h4><%=h feed.title %></h4>
+        <ul>
+          <% feed.entries.each do |entry| -%>
+            <% begin %>
+              <%= content_tag("li", link_to(h(entry.title), h(entry.url))) -%>
+            <% rescue %>
+              <% logger.info("ERROR: This feed entry is invalid. Probably because an error occurred in the deserialization of the feed.")
+                 logger.info("Check the source feed and make sure it is serializes/deserializes correctly.") %>
+            <% end %>
+          <% end -%>
+        </ul>
+      <% end -%>
+    <% end -%>
+  <%= render(:partial => "topics/secondary_wrapper_end") -%>
+<% end -%>
+
+<% if !@current_basket.index_page_image_as.blank? and !@selected_image_file.nil? -%>
+  <%= render(:partial => "topics/secondary_wrapper_start",
+             :locals => { :div_id => "selected-image-box", :class_suffix => nil }) -%>
+    <div id="selected-image-headline">
+      <h3><%=t "basket_model.image_#{@current_basket.index_page_image_as}" -%> <%=t 'index_page.index.image_from_archive' %></h3>
+    </div>
+    <%= slideshow_div %>
+  <%= render(:partial => "topics/secondary_wrapper_end") -%>
+<% end -%>
+
+<%# dont cache tags for now because they are likely to change often %>
+<%# cache({:part => "tags_#{@privacy_type}"}) do -%>
+  <% if @current_basket.index_page_number_of_tags &&
+        @current_basket.index_page_number_of_tags > 0 &&
+        @tag_counts_array.size > 0 -%>
+    <%= render(:partial => "topics/secondary_wrapper_start",
+               :locals => { :div_id => "tags-box", :class_suffix => nil }) -%>
+      <% tag_counts = @tag_counts_total > @tag_counts_array.size ?
+                       "( #{t('index_page.index.show_x_of_x', :count => @tag_counts_array.size, :total => @tag_counts_total)} | " +
+                        link_to(t('index_page.index.all_tags'),
+                                :controller => 'tags',
+                                :action => 'list') + " )" : '' -%>
+      <% if @current_basket.index_page_tags_as == 'tag cloud' -%>
+        <div id="tags-headline">
+          <h3 style="display:inline;"><%=t 'index_page.index.tags_title' %></h3>
+          <span><%= tag_counts -%></span>
+        </div>
+        <%= render :partial => 'tags/tags_by_tag_cloud', :locals => { :tags => @tag_counts_array } -%>
+      <% else -%>
+        <div id="tags-headline">
+          <h3 style="display:inline;"><%=t 'index_page.index.categories_title' %></h3>
+          <span><%= tag_counts -%></span>
+        </div>
+        <%= render :partial => 'tags/tags_by_categories', :locals => { :tags => @tag_counts_array } -%>
+      <% end -%>
+    <%= render(:partial => "topics/secondary_wrapper_end") -%>
+  <% end -%>
+<%# end -%>
+
+<% cache_with_privacy(@topic, {:part => 'license'}) do -%>
+  <% unless @topic.nil? || @topic.license_metadata.nil? -%>
+    <%= render(:partial => "topics/secondary_wrapper_start",
+               :locals => { :div_id => "license-box", :class_suffix => nil }) -%>
+      <div class="license"><%= @topic.license_metadata %></div>
+    <%= render(:partial => "topics/secondary_wrapper_end") -%>
+  <% end -%>
+<% end -%>
+
+<% # TODO: add following with logic -%>
+<% # archive_by_date - requires adding searching by date -%>
+
+   </div><!-- /secondary-content-wrapper -->
+</div><!-- /content-wrapper -->

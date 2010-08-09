@@ -1,0 +1,6 @@
+/* this is where we set the header image */
+#header {
+    background: transparent url(../images/header-bg.jpg) no-repeat top left;  /* background of the header */
+    border-bottom: 1px solid white;
+    height: 116px;
+}

@@ -1,0 +1,70 @@
+# Format 1: (simple gem name)
+# RedCloth:
+
+# Format 2: (source or version specific gems)
+# libxml-ruby:
+#   gem_name: libxml-ruby
+#   lib_name: libxml
+#   source: http://gems.rubyforge.org
+#   version: '= 0.7.0'
+
+management_gems:
+  capistrano:
+  capistrano-ext:
+  capistrano-configuration:
+  piston:
+
+testing_gems:
+  webrat:
+  shoulda:
+    lib_name: shoulda/rails
+  factory_girl:
+    lib_name: factory_girl
+
+gems:
+  nokogiri:
+  packet:
+    version: '>= 0.1.14'
+  chronic:
+  hpricot:
+  unicode:
+  RedCloth:
+    gem_name: RedCloth
+    lib_name: redcloth
+  mime-types:
+    gem_name: mime-types
+    lib_name: mime/types
+  memcache-client:
+    gem_deps: ['system_timer']
+    gem_name: memcache-client
+    lib_name: memcache
+  zoom:
+  libxml-ruby:
+    lib_name: libxml
+  avatar:
+  htmlentities:
+  xml-simple:
+    gem_name: xml-simple
+    lib_name: xmlsimple
+  feedzirra:
+    gem_name: kete-feedzirra
+    lib_name: feedzirra
+  tiny_mce:
+  http_url_validation_improved:
+
+# we use a hacked version of oai gem for the timebeing
+# included under vendor/gems
+#  oai: oai
+
+# these are problematic as gems depending on platform
+# for example, rmagick on debian is best installed with
+# sudo apt-get install librmagick-ruby1.8
+libs:
+  RMagick: RMagick
+
+# memcached is truncated to "memcache" for compatibility with
+# some systems' (Solaris10?) ps -c truncation amount
+commands:
+  Zebra: which zebrasrv
+  Memcache Daemon: ps -Ac | grep memcache
+  Unzip: which unzip

@@ -1,0 +1,44 @@
+zebradb/README
+
+This README describes the purpose and use of the zebradb directory.  It works in conjunction with the acts_as_zoom plugin in the Kete application.
+
+Walter McGinnis (walter-at-katipo dot co dot nz), 2006-12-19, updated 2009-05-12
+
+$ID: $
+
+----
+Purpose:
+
+This directory holds your Kete application's Zebra (http://indexdata.dk/zebra/) related files.  Zebra is used by Kete to carry out full text searches, as well as be another interface to it's data via Z39.50 and ZOOM by other services.
+
+If you have run through the normal Kete installation and configuration, see http://kete.net.nz/documentation/topics/show/114-installation, you will have Zebra installed on you machine, your Zebra databases (public and private dbs) initialized, your zebra password file updated, and the zebra listening instances started up.  We have done all the hard configuration.  If you want to peak behind the curtains, configuration files can be found under conf/ directory.  If something goes wrong, you'll probably want to view ../log/zebra.log and ask for help at http://kete.net.nz/documentation/topics/show/140-troubleshooting via discussion.
+
+If you decide to place your Zebra instances on a separate host from your Kete application, you may also need to poke holes in your firewall, depending on your setup.
+
+----
+Zebra Management:
+
+If you need to stop or start your Zebra instances, these actions are wrapped up in handy rake tasks specific to your Kete (assuming you have gone through standard Kete installation and configuration) for you:
+
+$ rake zebra:stop
+$ rake zebra:start
+
+There is a web based way to do this better (see below), buf if you want to wipe your either of your zebra instances clean by hand here's how:
+
+$ rake zebra:init # will do public db by default
+$ rake zebra:init ZEBRA_DB=private # specify private if you want to clear that one
+
+Kete needs to have a bootstrap record added to each Zebra db instance to work.  Do this:
+
+$ rake zebra:load_initial_records
+
+However, if you mucked up your Zebra db instances what you probably want to do is wipe them clean, restart them, load initial records, and then load Kete's sites material back in.  The BEST WAY to do this is from your Kete site.  Log in as the default administrator account and visit this link (adjusting for your site's actual address):
+
+http://your_site/site/search/setup_rebuild
+
+Fill out that form accordingly and submit it.  If your have your backgroundrb instance going (see Installation Guide), the Kete site will do the rest for you.
+
+----
+Misc. Notes:
+
+If you want to see more of the gory details of what Kete is doing to manage your Zebra instances, check out the code in ../lib/tasks/zebra.rake.  It mostly calls standard command line options for zebrasrv.

@@ -1,0 +1,7 @@
+#body-outer-wrapper {
+        width: 900px;
+        min-width: 40em;
+        max-width: 75em;
+        margin: auto;
+        position: relative;
+}
