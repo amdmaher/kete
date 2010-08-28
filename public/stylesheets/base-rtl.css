@@ -5,7 +5,7 @@
     font: 76%/1.3 arial, helvetica, sans-serif;
     
 	/*background-color: #bea35e;*/
-	background-color: #D3E0F1;
+	background-color: #ffffff;
 		
 }
 /* #################################### Content Structural Items #################################### */
@@ -14,36 +14,44 @@
     float:right;
 }
   html[dir="rtl"] .full-width #main-content-wrapper   {
-    width: 95%;
+    width: 80%;
     float:right;
    
 }
    html[dir="rtl"] #main-content-container, #search-content-container   {
-    padding: 1em 2em 1em 1em; 
+    padding: 1em 1em 1em 1em; 
     text-align:right;
     direction:rtl;
     float:right;
-     width: 95%;
+     width: 80%;
 }
 
  html[dir="rtl"] #secondary-content-wrapper  {
-    width: 30%;
-    float: right;
+    width: 25%; 
+    float: left;
+    position:absolute;
+    left:-20px;
+   
 }
 /* #################################### Header up#################################### */
  html[dir="rtl"] #header  {
     
     float: right;
+height:135px;
+
  }
 html[dir="rtl"] #header h1 ,
  html[dir="rtl"] #header p {
     display: inline;
     padding-left: 25px;
+padding-top: 25px;
+
     color: white;
 }
  html[dir="rtl"] #header h1 a {
-    color: white;
+    color: #22355f;
     font-size: 1em;
+border:#09F;
     
 }
  html[dir="rtl"] #header h1 a.basket {
@@ -130,7 +138,7 @@ html[dir="rtl"] #header h1 ,
 }
 #top-menu li,
  html[dir="rtl"] #basket-list li  {
-    border-right: 2px solid white;/*spaces between baskets and color */
+    border-right: 1px solid white;/*spaces between baskets and color */
 }
 #top-menu .nav-list li.first,
  html[dir="rtl"] #basket-list li.first {
@@ -202,7 +210,7 @@ background-color: #c6e2f0;
 
 /* #################################### Content Navigation Tabs #################################### */
  html[dir="rtl"] #content-tabs ul {
-    margin: 1em 0 5px 0;
+  margin: 1em 0 5px 0;
     padding: 0;
     clear:left;
     text-align:right;
@@ -210,14 +218,16 @@ background-color: #c6e2f0;
 }
  html[dir="rtl"] #content-tabs ul li {
     display: inline;
-    padding: .7em 0 0.5em 1em;
+ padding: .7em 0 0.5em 1em;
+/*padding: 1em 1em 1em 1em;*/
+
    /* background-color: #989898;*//*i think this is ramady section */
-	background-color: #006599; 
+	background-color: #d5dbe7; 
     text-align:right;
     direction:rtl;
 }
  html[dir="rtl"] #content-tabs ul li a {
-    padding: .75em 1em .5em 0;
+    padding: .75em 1em .5em .5em;
    
     
 }
@@ -409,10 +419,12 @@ background-color: #c6e2f0;
     margin: 1em 1em 1em 1em;
 }
  html[dir="rtl"] .secondary-content-section {
-   /* background-color: #ddd;*/
+ /*  background-color: #ddd;*/
    
-   background-color:#006599;
-	
+  background-color:#ebeef3;/*the  back ground color of  secondery content */	
+	border:#09F;
+	border: thick	;
+
     /*padding: 0.7em 0.7em 0 0.7em;*/
 }
  html[dir="rtl"] .secondary-content-section-content  {
@@ -426,6 +438,13 @@ background-color: #c6e2f0;
     color: #333;
     font-size: 1.2em;
 }
+
+html[dir="rtl"] .secondary-content-section ul {
+    margin-right: -15px;
+    color: #333;
+    
+} 
+
  html[dir="rtl"] .secondary-content-section-footer-wrapper {
     margin: -0.7em;
     clear: both;
@@ -527,7 +546,7 @@ background-color: #c6e2f0;
     float: right;
     text-align: right;
    /* background-color: #dfdfdf;*/
-	background-color:#cfb987
+	background-color:#abbad1
     padding: 0.7em;
     margin-left: 1em;
 }
@@ -536,10 +555,17 @@ background-color: #c6e2f0;
 }
 
 /* #################################### Search Results #################################### */
+/*this is the position of search in the header */
  html[dir="rtl"] #head-search-wrapper {
-    float: left;
-    position: static;
-    left: 1em;
+    float:left;
+
+    /*position: static;*/
+/*left:0em;	*/
+margin-top:12em;
+margin-right: 51.5em;
+padding-left:0em;
+
+
 }
 
 #head-search-wrapper form,
@@ -573,7 +599,7 @@ background-color: #c6e2f0;
 
 }
  html[dir="rtl"] #head-search-wrapper .search_fields input.submit  {
-  background-color: #CFB987;
+  background-color: #abbad1;
   padding: 3px 6px;
 }
 
@@ -905,7 +931,7 @@ p.help,
     border: 1px solid #ccc;
 }
  html[dir="rtl"] .prev-next {
-    float: right;
+    float: left;
     padding-right: 1em;
     direction:rtl;
 }
@@ -1029,7 +1055,7 @@ span.next-inactive,
 }
 
  html[dir="rtl"] .warning, div#notice div, div#error div  {
-    background-color: #f9f3cd;
+    background-color: #abbad1;
     border: 1px solid #baae8b;
     padding: .5em;
     margin-bottom: 1em;
@@ -1123,6 +1149,7 @@ span.next-inactive,
   float: right;
   padding-right: 5px;
   border-right: 2px solid #CFB987;
+ border-left:none;
 }
  html[dir="rtl"] .profile_basket_options  {
   float: right;
@@ -1289,7 +1316,7 @@ span.next-inactive,
 
  html[dir="rtl"] #basket-list-column {
         width: 160px;
-        float: left;
+        float: right;
         margin-bottom: 200px;
 }
  html[dir="rtl"] #basket_list_table  {
@@ -1772,106 +1799,4 @@ span.next-inactive,
  
        background-position: top left;
         background-repeat: no-repeat;
-}
-
- html[dir="rtl"] #search-content-wrapper  {
-	background-image: url(images1/content-tab-sel-lf.gif);
-	background-position: top left;
-	background-repeat: no-repeat;
-}
- html[dir="rtl"] .main-content-footer-wrapper {
-        margin: 0 0 -1em -1em;
-}
- html[dir="rtl"] #top-menu  {
-        background-image: url(images1/top-menu-btrt-bg.gif);
-        background-position: 100% 100%;
-        background-repeat: no-repeat;
-}
- html[dir="rtl"] #top-menu ul  {
-        background-image: url(images1/top-menu-btlf-bg.gif);
-        background-position: 0 100%;
-        background-repeat: no-repeat;
-}
- html[dir="rtl"] #content-tabs ul li {
-        background-image: url(images1/content-tab-unsel-lf.gif);
-        background-repeat: no-repeat;
-}
- html[dir="rtl"] #content-tabs ul li a {
-        background-image: url(images1/content-tab-unsel-rt.gif);
-        background-repeat: no-repeat;
-        background-position: 100% 0;
-}
- html[dir="rtl"] #content-tabs ul li.selected {
-        background-image: url(images1/content-tab-sel-lf.gif);
-        background-repeat: no-repeat;
-}
- html[dir="rtl"] #content-tabs ul li.selected a {
-        background-image: url(images1/content-tab-sel-rt.gif);
-        background-repeat: no-repeat;
-        background-position: 100% 0;
-}
- html[dir="rtl"] #content-wrapper  {
-        background-color: WHITE;
-        background-image: url(images1/content-tab-sel-rt.gif);
-        background-repeat: no-repeat;
-        background-position: 100% 0;
-}
-
-/*
- * SECONDARY CONTENT WRAPPER FOR MAIN CONTENT (BLUE)
- */
- html[dir="rtl"] .secondary-content-section-wrapper-blue  {
-  background: red url(images1/insetbox-2-tplf.gif) no-repeat top left;
-  width: auto;
-  /*  background: #cddced url(images1/insetbox-2-tplf.gif) no-repeat top left;
-*/
-}
- html[dir="rtl"] .secondary-content-section-wrapper-blue .secondary-content-section  {
-  background: transparent url(images1/insetbox-2-tprt.gif) no-repeat top right;
-}
- html[dir="rtl"] .secondary-content-section-wrapper-blue .secondary-content-section-footer-wrapper  {
-  background: transparent url(images1/insetbox-2-btlf.gif) no-repeat bottom left;
-  width: auto; height: 13px; padding: 0; margin: 0;
-}
- html[dir="rtl"] .secondary-content-section-wrapper-blue .secondary-content-section-footer  {
-  background: transparent url(images1/insetbox-2-btrt.gif) no-repeat bottom right;
-  width: auto; height: 13px; padding: 0; margin: 0;
-}
-
-/*
- * SECONDARY CONTENT WRAPPER FOR MAIN CONTENT (GREY)
- */
- html[dir="rtl"] .secondary-content-section-wrapper  {
-  background: #CFB987 url(images1/insetbox-1-tplf.gif) no-repeat top left;
-  
-  width: auto;
-  /*  background: #dfdfdf url(images1/insetbox-1-tplf.gif) no-repeat top left;
-*/
-}
- html[dir="rtl"] .secondary-content-section-wrapper .secondary-content-section  {
-  background: transparent url(images1/insetbox-1-tprt.gif) no-repeat top right;
-}
- html[dir="rtl"] .secondary-content-section-wrapper .secondary-content-section-footer-wrapper  {
-  background: transparent url(images1/insetbox-1-btlf.gif) no-repeat bottom left;
-  width: auto; height: 13px; padding: 0; margin: 0;
-}
- html[dir="rtl"] .secondary-content-section-wrapper .secondary-content-section-footer  {
-  background: transparent url(images1/insetbox-1-btrt.gif) no-repeat bottom right;
-  width: auto; height: 13px; padding: 0; margin: 0;
-}
-
-/*
- * CONTENT WRAPPER FOR COMMENTS
- */
- html[dir="rtl"] .comment-wrapper .comment-wrapper-header-wrapper  {
-        background: transparent url(images1/comment_tplf.gif) no-repeat top left;
-}
- html[dir="rtl"] .comment-wrapper .comment-wrapper-header  {
-        background: transparent url(images1/comment_tprt.gif) no-repeat top right;
-}
- html[dir="rtl"] .comment-wrapper .comment-wrapper-footer-wrapper  {
-        background: transparent url(images1/comment_btlf.gif) no-repeat bottom left;
-}
- html[dir="rtl"] .comment-wrapper .comment-wrapper-footer  {
-        background: transparent url(images1/comment_btrt.gif) no-repeat bottom right;
 }
