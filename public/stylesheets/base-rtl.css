@@ -984,16 +984,21 @@ span.next-inactive,
   
     
 }
+/*this is the code which control in rss position */
  html[dir="rtl"] #linkToRSS  {
-  padding: 15px 0 5px 0;
+  padding: 35px 5px 5px 550px;
   text-align:right;
+/*float:right;*/
   direction:rtl;
 }
  html[dir="rtl"] #linkToRSS ul  {
   list-style-image: url(../images/icon-feed.gif);
-  margin: 0;
-  text-align:right;
+  margin-right: 50px;
+  text-align:left;
+/*float:right;*/
   direction:rtl;
+padding: 860px 0px 0px 0px;
+
  
 }
  html[dir="rtl"] #footer_links  {
